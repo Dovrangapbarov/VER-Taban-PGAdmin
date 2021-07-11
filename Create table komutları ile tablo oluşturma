@@ -1,0 +1,83 @@
+BEGIN;
+
+
+CREATE TABLE public."SAKLAMA"
+(
+    "ID" serial NOT NULL,
+    "Saklama_turu" character varying(40),
+    PRIMARY KEY ("ID")
+);
+
+CREATE TABLE public."TUR"
+(
+    "ID" serial NOT NULL,
+    "Tur" character varying(30),
+    PRIMARY KEY ("ID")
+);
+
+CREATE TABLE public."BİRİM"
+(
+    "ID" serial NOT NULL,
+    "Birim" character varying(30),
+    PRIMARY KEY ("ID")
+);
+
+CREATE TABLE public."URUN"
+(
+    "İD" serial NOT NULL,
+    "Tur_id" integer,
+    "Saklama_id" integer,
+    "Birim_İD" integer,
+    "Cins" character varying,
+    "Alis_fiyati" integer,
+    "KDV" integer,
+    PRIMARY KEY ("İD")
+);
+
+CREATE TABLE public."STOK"
+(
+    "İD" serial NOT NULL,
+    "Urun_id" integer,
+    "Adet" integer,
+    PRIMARY KEY ("İD")
+);
+
+CREATE TABLE public."SATİS"
+(
+    "İD" serial NOT NULL,
+    "Urun_id" integer,
+    "Adet" integer,
+    "Satis_fiyati" integer,
+    PRIMARY KEY ("İD")
+);
+
+ALTER TABLE public."URUN"
+    ADD FOREIGN KEY ("Saklama_id")
+    REFERENCES public."SAKLAMA" ("ID")
+    NOT VALID;
+
+
+ALTER TABLE public."URUN"
+    ADD FOREIGN KEY ("Tur_id")
+    REFERENCES public."TUR" ("ID")
+    NOT VALID;
+
+
+ALTER TABLE public."URUN"
+    ADD FOREIGN KEY ("Birim_İD")
+    REFERENCES public."BİRİM" ("ID")
+    NOT VALID;
+
+
+ALTER TABLE public."STOK"
+    ADD FOREIGN KEY ("Urun_id")
+    REFERENCES public."URUN" ("İD")
+    NOT VALID;
+
+
+ALTER TABLE public."SATİS"
+    ADD FOREIGN KEY ("Urun_id")
+    REFERENCES public."URUN" ("İD")
+    NOT VALID;
+
+END;
